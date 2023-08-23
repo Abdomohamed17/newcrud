@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+<title>create page</title>
+<meta name="description" content="training">
+<!-- <link href="boot.css" rel="stylesheet">  -->
+
+<!-- <link href="create.css" rel="stylesheet"> -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- 
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>  
+
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>  -->
+
+<style>
+
+*{
+    margin: 0;
+    padding: 0;
+    
+  }
+  
+body{
+  background-image: url(night.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+@media  (max-width:1300px){
+body{background-position: 50%;}
+}
+
+
+  
+  .container{
+    width: 60%;
+    background-color: rgba(95, 158, 160, 0.315);
+    height: 600px;
+    margin:90px auto;
+    position: relative;
+    border-radius: 30px;
+
+  }
+
+  .container2{   
+     width: 80%;
+     display: none;
+  }
+  
+  .container  #inputs{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  /* margin:auto ; */
+  position: absolute;
+  top: 70px;
+  left: 25%;
+  /* transform: translate(30%,0); */
+  }
+  
+  #inputs input{margin-top: 20px;
+    height: 20px;
+    border: 0;
+    outline: 0;
+  border-radius: 10px;
+  transition: .5s;
+  padding: 20px;
+  background-color:   rgba(255, 255, 255, 0.623);
+
+  color: #222;
+  font-weight:700;
+  caret-color: rgba(255, 255, 255, 0);
+  }
+  
+  input:focus{
+    transform: scale(1.1);
+  }
+  
+  input::placeholder{
+    color:#555
+  }
+  button{width:100%;
+    margin: auto;
+    /* margin-top: 20px ; */
+  height: 30px;
+  background-color:rgba(95, 158, 160, 0.315);
+  color: #fff;
+  text-transform: capitalize;
+  transition:1s;
+  border-radius: 10px;
+  cursor: pointer;
+  border-color: rgba(0, 0, 255, 0);
+  }
+  
+  #create , #deleteAll{
+    margin-top: 20px ;
+      height: 40px;
+      /* font-size: larger; */
+      cursor: pointer;
+      font-weight:600;
+      font: 1em sans-serif;
+      font-size: larger;
+  }
+
+  #create:hover , #deleteAll:hover{
+    background-color:rgba(95, 158, 160, 0.712) ;
+    /* transform: scale(1.1); */
+    letter-spacing: 2px;
+  }
+
+
+
+
+
+</style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="inputs">
+          <div class="empty"></div>
+
+      <input type="text" id="name" placeholder="user name" >
+      <input type="password" id="pw" placeholder="password"  >
+      <input type="password" id="confirm-pw" placeholder="confirm pw" > 
+      <input type="email" id="email" placeholder="email" required>
+      <button id="create" >create</button>
+      <button id="deleteAll" >deleteAll</button>
+     
+    </div> 
+    
+
+
+  </div>
+<script>
+
+let name = document.getElementById("name") ;
+let pw = document.getElementById("pw") ;
+let confirmpw = document.getElementById("confirm-pw") ;
+let email = document.getElementById("email") ;
+let create = document.getElementById("create") ;
+let deleteAlldata = document.getElementById("deleteAll") ;
+let empty = document.getElementsByClassName("empty")[0] ;
+// let table2  = document.getElementsByClassName("table")[0] ;
+let inputs = document.getElementById("inputs") ;
+let users   ;
+let showdata = localStorage.getItem("showdata")
+create.style.caretColor = "rgba(255, 0, 0, 0)" 
+deleteAlldata.style.caretColor = "rgba(255, 0, 0, 0)" 
+if(localStorage.dataUsers != null){
+  users = JSON.parse(localStorage.dataUsers)
+}else{
+  users  = [] 
+}
+
+// Create New Account .
+create.onclick = function (){
+
+ 
+  // عدم احداث اي تغيير في الكود اذا كانت ال ايا من ال INPUTS فارغه 
+  if(!name.value  ||
+     !pw.value ||
+     !confirmpw.value  ||
+     !email.value ){
+      alert("please Fill in the blank entries")
+      return ; }
+  // اذا كان ال username اصغر من 4 حروف نفذ الشرط ده 
+  if(name.value.length < 4){
+
+empty.innerHTML = ("Username must be at least 4 characters ")
+empty.style.color="red" ;
+empty.style.margin = "auto" ;
+empty.style.fontSize = "20px" ;
+empty.style.caretColor = "rgba(255, 0, 0, 0)" ;
+return ;
+}
+
+// اذا كان الباسورد اقل من 8 ارقام نفذ الشرط ده 
+
+if(pw.value.length < 8){
+empty.innerHTML = ("The Password must be at least 8 characters ")
+
+empty.style.color="red" ;
+empty.style.margin = "auto" ;
+empty.style.fontSize = "20px" ;
+empty.style.caretColor = "rgba(255, 0, 0, 0)" ;
+
+return ;
+}
+
+
+// اذا كان ال pw لا يتماشي مع ال confirm لايتم تنفيذ الكود 
+if(pw.value !== confirmpw.value){
+empty.innerHTML = ("pw isn't match for confirm")
+
+empty.style.color="red" ;
+empty.style.margin = "auto" ;
+empty.style.fontSize = "20px"    ;
+empty.style.caretColor = "rgba(255, 0, 0, 0)" ;
+
+ return ;
+}
+
+// اذا كان ال email لا يحتوي علي @ نفذ الشرط ده 
+
+if(!email.value.includes("@")){
+  
+empty.innerHTML = ("include an \"@\"in the email address as is missing")
+empty.style.color="red" ;
+empty.style.margin = "auto" ;
+empty.style.fontSize = "20px"    ;
+empty.style.caretColor = "rgba(255, 0, 0, 0)" ;
+
+ return ;
+}
+
+
+
+// اذا كان البريد الإلكتروني يحتوي على أكثر من نقطة واحدة
+if (email.value.split('.').length > 2 ) {
+empty.innerHTML = ("Make sure there is no dot (.) sign.")
+empty.style.color = "red";
+empty.style.margin = "auto";
+empty.style.fontSize = "20px";
+empty.style.caretColor = "rgba(255, 0, 0, 0)";
+
+return;
+} 
+  else{empty.innerHTML=""}
+
+// اذا كان الاسم موجود في قبل كده هيطلع رساله بتغير الاسم لوجوده في الداتا 
+
+for(let i = 0 ; i < users.length ; i++){
+if(name.value === users[i].userName){
+empty.innerHTML = ("this name is found please create by another name ")
+empty.style.color="red" ;
+empty.style.margin = "auto" ;
+empty.style.fontSize = "20px"    ;
+empty.style.caretColor = "rgba(255, 0, 0, 0)" ;
+return ;
+}
+
+  else{empty.innerHTML=" "}
+  }
+
+  let Data = {
+    userName : name.value , 
+    userPw : pw.value ,
+    confirmPw : confirmpw.value ,
+    emailUser : email.value 
+  }
+
+  // عدم احداث اي تغيير في الكود اذا كانت ال ايا من ال OBJECT فارغه 
+
+  // if(!Data.name || !Data.pw || !Data.confirm || !Data.email){
+  //       alert("try again") ;
+  //        return ;
+  //   }
+  
+  users.push(Data)
+  localStorage.setItem("dataUsers" , JSON.stringify(users)) ;
+  removeInputs() ;
+showdata ;
+}
+
+
+//Remove Data From Inputs After Press Create .
+function removeInputs(){
+  name.value = "" ;
+  pw.value = "" ;
+  confirmpw.value = "" ;
+  email.value = ""
+}
+
+
+//Clear All Data From Local & Array 
+deleteAlldata.onclick=function clearAll(){
+
+  users.splice(0) ; 
+  localStorage.removeItem("dataUsers")
+}
+
+//Show Data 
+
+// function showData(){
+//   let table = "" ;
+//   for(let i = 0 ; i < users.length ; i++){
+//     table += `
+//             <tr>
+//               <td>${users[i].userName}</td>
+//               <td>${users[i].userPw}</td>
+//               <td>${users[i].confirmPw}</td>
+//               <td>${users[i].emailUser}</td>
+//               <td><button>update</button></td>
+//               <td><button>delete</button></td>
+//             </tr>
+//     ` ;
+//       let tbody = document.getElementById("tbody")
+//           tbody.innerHTML = table
+//   }
+
+// }
+
+
+
+</script>
+
+
+</body>
+</html>
+ 

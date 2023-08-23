@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+<title>datashow page</title>
+<meta name="description" content="training">
+<!-- <link href="boot.css" rel="stylesheet">  -->
+
+<!-- <link href="create.css" rel="stylesheet"> -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- 
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>  
+
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>  -->
+<style>
+  body{background-image: url(night.jpg);
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;}
+
+.container2{   
+     width: 80%;
+     display: none;
+  }
+  
+  .table{color: #fff;
+  width: 50%;
+  margin: auto;
+  transform: translate(5%,0);
+  margin-top: 20px;
+  padding:5px;
+  caret-color: rgba(34, 34, 34, 0)
+  }
+  .table th {background-color: rgba(95, 158, 160, 0.315);padding: 5px
+  ;}
+
+  button{width:100%;
+    margin: auto;
+    /* margin-top: 20px ; */
+  height: 30px;
+  background-color:rgba(95, 158, 160, 0.315);
+  color: #fff;
+  text-transform: capitalize;
+  transition:1s;
+  cursor: pointer;
+  border: none;
+  }
+
+  
+#inputs{
+    
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  margin: auto;
+  transform: translate(30%,0);
+  }
+  
+  #inputs input{margin-top: 20px;
+    
+    height: 20px;
+    border: 0;
+    outline: 0;
+  border-radius: 10px;
+  transition: .5s;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.623);
+  color: #222;
+  font-weight: 700;
+  }
+  
+  input:focus{
+    transform: scale(1.1);
+  }
+  
+  #update{
+    margin-top: 20px ;
+    height: 50px;
+    /* font-size: larger; */
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight:600;
+    font: 1em sans-serif;
+    caret-color: rgba(34, 34, 34, 0);
+
+}
+
+#update:hover{
+  background-color:rgba(95, 158, 160, 0.712) ;
+  /* transform: scale(1.1); */
+  letter-spacing: 2px;
+}
+@media  (max-width:1300px){
+body{background-position: 50%;}
+}
+</style>
+</head>
+<body>
+<form>
+    <table class="table" border="1">
+    <thead>
+    <tr>
+      <th class="name">Name</th>
+      <th class="pw">password</th>
+      <th class="confirm-pw">confirm-pw</th>
+      <th class="email">email</th>
+      <th>update</th>
+      <th>delete</th>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+    
+    </tbody>
+    </table>
+    </form>
+
+    <div class="container2">
+      <div id="inputs">
+  
+      <input type="text" id="name" placeholder="user name"  minlength="4" maxlength="30">
+  <input type="password" id="pw" placeholder="password"  minlength="6" maxlength="20">
+  <input type="password" id="confirm-pw" placeholder="confirm pw" minlength="6"  maxlength="20"> 
+  <input type="email" id="email" placeholder="email" required>
+  <button id="update" >update</button>
+  </div> 
+  
+
+
+</div>
+<script>
+  let container2 = document.getElementsByClassName("container2")[0]
+
+  let arr ;
+let name   = document.getElementById("name") ; 
+let pw   = document.getElementById("pw") ; 
+let confirmpw   = document.getElementById("confirm-pw") ; 
+let email   = document.getElementById("email") ; 
+let table2 = document.getElementsByClassName("table")[0] ;
+let users  = JSON.parse(localStorage.dataUsers);
+
+
+
+//Show Data 
+
+let showData = () => {
+  let table = "" ;
+  for(let i = 0 ; i < users.length ; i++){
+    table += `
+            <tr>
+              <td>${users[i].userName}</td>
+              <td>${users[i].userPw}</td>
+              <td>${users[i].confirmPw}</td>
+              <td>${users[i].emailUser}</td>
+              <td><button onclick="change(${i})">update</button></td>
+              <td><button onclick="deleteItem(${i})">delete</button></td>
+            </tr>
+    ` ;
+      let tbody = document.getElementById("tbody")
+          tbody.innerHTML = table
+  }
+
+}
+showData() ;
+
+let show = showData.toString() ;
+localStorage.setItem("showdata" , show) ;
+
+function deleteItem(i){
+  users.splice(i,1)
+localStorage.dataUsers = JSON.stringify(users) ;
+showData() ;
+
+}
+
+
+
+
+function change(i) {
+ 
+    name.value = users[i].userName ;
+    pw.value = users[i].userPw ;
+    confirmpw.value = users[i].confirmPw ;
+    email.value = users[i].emailUser ;  
+    container2.style.display =" block" 
+    update.onclick = function () {
+    users[i].userName = name.value;
+    users[i].userPw = pw.value;
+    users[i].confirmPw = confirmpw.value;
+    users[i].emailUser = email.value;
+    localStorage.dataUsers = JSON.stringify(users);
+    if(pw.value !== confirmpw.value){
+    alert("pw isn't match for confirm") ;
+    return ;
+  }
+  if(!name.value  ||
+     !pw.value ||
+     !confirmpw.value  ||
+     !email.value ){
+      alert("please Fill in the blank entries")
+      return ; }
+ 
+
+
+    showData();
+  };
+showData() ; 
+}
+
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
+ 

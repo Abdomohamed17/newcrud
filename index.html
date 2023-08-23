@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+<title>login page</title>
+<meta name="description" content="training">
+<!-- <link href="boot.css" rel="stylesheet">  -->
+
+<!-- <link href="index.css" rel="stylesheet"> -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    *{margin: 0 ;
+    padding: 0;}
+    body{
+  background-image: url(night.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+}
+
+input{
+caret-color: rgba(255, 0, 0, 0);}
+
+        /* media */
+
+@media  (max-width:1300px){
+body{background-position: 50%;}
+}
+@media  (max-width:450px){
+body{background-position: 50%;}
+.perant .child .b{
+    font-weight: 700;
+    font-size:17px;
+    word-spacing: 0;
+  }
+}
+@media  (max-width:216px){
+.perant .child  #userLogin::placeholder , .child #pwLogin::placeholder{
+    font-size:12px;
+}
+.perant .child #btnLogin ,.perant .child #btnSignin{
+width: 35%;
+
+}
+ }
+
+ @media  (max-width:200px){
+
+.perant .child #btnLogin ,.perant .child #btnSignin{
+font-size: 10px;
+}
+ }
+
+
+ @media (max-width:450px) {
+    .perant .child .b{
+    font-weight: 700;
+    font-size:15px;
+    word-spacing: 0;
+  }
+
+ body .perant {
+    margin-top: 50%;
+    width: 70%;
+    height: 200px;
+  }
+       
+  .child  #userLogin , .child #pwLogin{
+    width: 90%;
+    margin: auto;
+    border: none;
+    padding:4px;
+    margin-bottom: 8px;
+/* border-radius: 10px; */
+/* height: 40px; */
+}
+.child #btnLogin ,.child #btnSignin{
+width: 30%;
+
+}
+.child{margin-bottom: 25px;}
+}
+
+
+@media(min-width:450px) and (max-width:915px){
+    .child  #userLogin , .child #pwLogin{
+    width: 100%;
+    border: none;
+    padding:10px;
+    margin: auto;
+    margin-bottom: 20px;
+/* border-radius: 10px; */
+/* height: 40px; */
+} 
+.child #btnLogin ,.child #btnSignin{
+width: 30%;
+height: 40px;
+margin: auto;
+} 
+.perant{width:500px;
+height: 300px;
+margin-top: 230px;} 
+.perant .child .b{
+    font-weight: 700;
+    font-size:17px;
+    word-spacing: 0;
+  }
+
+}
+/* _________________________________________________ */
+.perant{ background:rgba(95, 158, 160, 0.315) ;
+            height: 400px;
+            width: 500px;
+            margin: 10% auto;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;}
+
+
+.child{
+        display: flex;
+            flex-direction: column;
+           }
+.b{
+    padding:5px ;
+    color: red;
+    text-align: center;
+    word-spacing: 2px;
+    visibility: hidden;
+    font-weight: 700;
+    font-size: 25px;
+
+}    
+
+.login{display: flex;
+justify-content: space-around;}
+
+#btnLogin , #btnSignin{
+        height: 30px;
+  color: #fff;
+  text-transform: capitalize;
+  transition:1s;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 40%;
+  color: #fff;
+  background-color: rgba(95, 158, 160, 0.651) ;
+  border: none;
+  margin-top: 10px;
+  font-weight:700;
+    }
+#btnLogin:hover , #btnSignin:hover{
+ letter-spacing: 2px;
+ background-color:rgba(95, 158, 160, 0.897) ;
+
+}
+
+
+#userLogin , #pwLogin{
+    border: none;
+padding:13px ;
+/* border-radius: 10px; */
+/* height: 40px; */
+font-size:medium;
+transition: .5s;
+width: 350px;
+margin: 10px;
+color: black;
+}
+
+
+#userLogin::placeholder, #pwLogin::placeholder{
+    color:rgba(34, 33, 33, 0.801);
+}
+
+#userLogin:focus , #pwLogin:focus{transform: scale(1.1);}
+
+.user:focus{border : red solid 4px}
+.else2{border:red solid 4px}
+    
+</style>
+<!-- 
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>  
+
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>  -->
+
+</head>
+<body>
+    <div class="perant">
+        <div class="child">
+    <b class="b">Not User Data or passowrd Found</b>
+          <input type="text" id="userLogin" placeholder="user name">
+         <input type="password"  id="pwLogin" placeholder="password">
+         <div class="login">
+            <input type="button" onclick="check()"   id="btnLogin" value="login">
+          <input type="button" onclick="signIn()"  id="btnSignin" value="sign in">
+         </div>
+          
+        </div>
+    </div>
+     
+
+<script>
+
+
+function check(){
+let b = document.getElementsByClassName("b")[0];
+let userLogin = document.getElementById("userLogin");
+let pwLogin = document.getElementById("pwLogin");
+let btnLogin = document.getElementById("btnLogin");
+let btnSignin = document.getElementById("btnSignin");
+let isCheck = false ;
+let name = "abdo"
+let arrayUser = JSON.parse(localStorage.getItem("dataUsers")) ;
+    for(let i = 0 ; i < arrayUser.length ; i++){
+    if( userLogin.value === arrayUser[i].userName &&
+        pwLogin.value === arrayUser[i].userPw){
+        isCheck = true ;
+    break ;   }
+              }
+    if(isCheck){
+       open("options.html")
+    }else {
+ 
+        b.style.visibility="visible" ;
+        b.style.border = "none"
+        userLogin.style.border = "solid 3px red";
+    userLogin.focus();
+    pwLogin.style.border = "solid 2px red";
+}
+}
+
+function signIn(){
+    open("create2.html")
+}
+</script>
+
+
+</body>
+</html>
+ 

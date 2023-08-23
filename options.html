@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+<title>register and datauser</title>
+<meta name="description" content="training">
+<!-- <link href="boot.css" rel="stylesheet"> -->
+
+<!-- <link href="index.css" rel="stylesheet"> -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- 
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>  
+
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>  -->
+
+<style>
+
+.Rigister:hover{letter-spacing: 2px;}
+.dataUser:hover{letter-spacing: 2px;}
+    
+body{
+  background-image: url(night.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+
+}
+
+
+.Rigister_dataUser{display: flex;justify-content: center;margin-top: 20%}
+.Rigister{background-color: rgba(95, 158, 160, 0.712);
+     transition: .5s;
+     color: #fff;padding: 10px;width: 20%;
+     font-size: larger;border-radius: 10px;
+     cursor: pointer; border-style:none ;margin: 10px;}
+.dataUser{background-color: rgba(95, 158, 160, 0.507);
+     transition: .5s;
+     color: #fff;padding: 10px;width: 20%;
+     font-size: larger;border-radius: 10px;
+     cursor: pointer; border-style:none ;margin: 10px;}
+input{
+caret-color: rgba(255, 0, 0, 0);}
+
+.Rigister_dataUser .dataUser ,.Rigister_dataUser .Rigister{
+    font-weight:600;
+}
+
+
+
+
+           /* media code*/
+
+ @media (max-width:240px){
+  .Rigister_dataUser .Rigister{padding:4px;width:40%;
+     font-size:x-small;font-weight: bolder;
+    }
+.Rigister_dataUser .dataUser{
+      padding:4px;width:40%;
+     font-size:x-small;font-weight: bolder;}
+
+.Rigister_dataUser{margin-top:70%;}
+}
+ 
+
+
+@media (max-width:450px){
+.Rigister_dataUser .Rigister{padding:4px;width:30%;
+     font-size:smaller;
+    }
+.Rigister_dataUser .dataUser{
+      padding:4px;width:30%;
+     font-size:smaller;}
+
+.Rigister_dataUser{margin-top:70%;}
+
+  
+}
+
+
+@media(min-width:450px) and (max-width:550px){
+      .Rigister_dataUser .Rigister{padding:4px;width:30%;
+     font-size:smaller;
+    }
+      .Rigister_dataUser .dataUser{
+      padding:4px;width:30%;
+     font-size:smaller;}
+     .Rigister_dataUser{margin-top:40%;}
+
+    }
+
+
+@media (min-width:550px)and (max-width:700px){
+  .Rigister_dataUser .Rigister{padding:4px;width:30%;
+     font-size:large;
+    }
+      .Rigister_dataUser .dataUser{
+      padding:4px;width:30%;
+     font-size:large;}
+     .Rigister_dataUser{margin-top:35%;}
+}
+
+@media (min-width:700px)and (max-width:900px){
+  .Rigister_dataUser .Rigister{padding:4px;width:20%;
+     font-size:large;
+    }
+      .Rigister_dataUser .dataUser{
+      padding:4px;width:20%;
+     font-size:large;}
+}
+
+@media  (max-width:1300px){
+body{background-position: 50%;}
+} 
+
+</style>
+</head>
+<body>
+
+
+
+<div class="Rigister_dataUser">
+
+    <input type="button" class="Rigister" value="Rigister" onclick=" registerUser()">
+
+    <input type="button" class="dataUser" value="DataUser"  onclick="dataUserButton()">
+
+
+</div>
+
+
+<!-- <script src="index.js"></script> -->
+<script>
+
+
+  // show create page
+function registerUser() {
+   
+   window.open("create2.html");
+} 
+
+// show table  
+function dataUserButton() {
+ 
+ window.open("table.html");
+}
+
+
+</script>
+</body>
+</html>
+
